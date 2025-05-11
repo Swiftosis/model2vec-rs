@@ -4,7 +4,6 @@ version = "0.1.0"
 edition = "2021"
 description = "Fast State-of-the-Art Static Embeddings in Rust"
 readme = "README.md"
-license = "MIT"
 license-file = "LICENSE"
 authors = ["Thomas van Dongen <thomas123@live.nl>", "Stéphan Tulkens <stephantul@gmail.com>"]
 homepage = "https://github.com/MinishLab/model2vec-rs"
@@ -21,6 +20,7 @@ clap = { version = "4.0", features = ["derive"] }
 anyhow = "1.0"
 serde_json = "1.0"
 half = "2.0"
+rayon = "1.7"
 
 [dev-dependencies]
 approx = "0.5"

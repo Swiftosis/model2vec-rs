@@ -1,24 +1,22 @@
 [package]
-name = "model2vec-rs"
-version = "0.1.0"
+name = "model2vec"
+version = "0.2.0"
 edition = "2021"
-description = "Official Rust Implementation of Model2Vec"
+description = "H2CO3's & Narnium's Rust Implementation of Model2Vec"
 readme = "README.md"
 license-file = "LICENSE"
-authors = ["Thomas van Dongen <thomas123@live.nl>", "Stéphan Tulkens <stephantul@gmail.com>"]
-homepage = "https://github.com/MinishLab/model2vec-rs"
-repository = "https://github.com/MinishLab/model2vec-rs"
-keywords = ["embeddings", "model2vec", "nlp", "rust"]
-categories = ["science", "text-processing"]
+authors = ["Thomas van Dongen <thomas123@live.nl>", "Stéphan Tulkens <stephantul@gmail.com>", "Árpád Goretity <h2co3@narnium.com>"]
+homepage = "https://narnium.com"
+repository = "https://github.com/Swiftosis/model2vec-rs"
+keywords = ["embeddings", "text-embedding", "model2vec", "nlp", "language"]
+categories = ["text-processing", "science", "mathematics", "algorithms"]
 
 exclude = ["tests/*"]
 
 [dependencies]
 tokenizers = "0.21"
 safetensors = "0.5"
-ndarray = "0.15"
-hf-hub = "0.3"
-clap = { version = "4.0", features = ["derive"] }
+ndarray = "0.16"
 anyhow = "1.0"
 serde_json = "1.0"
 half = "2.0"

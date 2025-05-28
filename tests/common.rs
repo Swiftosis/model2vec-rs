@@ -1,12 +1,12 @@
-use model2vec_rs::model::StaticModel;
+use model2vec::model::Model2Vec;
 
 /// Load the small float32 test model from fixtures
-pub fn load_test_model() -> StaticModel {
-    StaticModel::from_pretrained(
+pub fn load_test_model() -> Model2Vec {
+    Model2Vec::from_pretrained(
         "tests/fixtures/test-model-float32",
-        None,   // token
         None,   // normalize
-        None,   // subfolder
+        None,   // subdirectory
+    ).expect(
+        "Failed to load test model"
     )
-    .expect("Failed to load test model")
 }

@@ -57,20 +57,23 @@ impl Model2Vec {
         let normalize = normalize.unwrap_or(cfg_norm);
 
         // Serialize the tokenizer to JSON, then parse it and get the unk_token
-        let spec_json = tokenizer
-            .to_string(false)
-            .map_err(|e| anyhow!("failed to serialize tokenizer to JSON: {e}"))?;
-        let spec: Value = serde_json::from_str(&spec_json)
-            .context("failed to parse tokenizer JSON spec")?;
-        let unk_token = spec
-            .get("model")
-            .and_then(|m| m.get("unk_token"))
-            .and_then(Value::as_str)
-            .unwrap_or("<unk>");
-        let unk_token_id = tokenizer
-            .token_to_id(unk_token)
-            .ok_or_else(|| anyhow!("tokenizer JSON declared unk_token=\"{unk_token}\" but it’s not in the vocab"))?;
-        let unk_token_id = Some(unk_token_id as usize);
+        let spec: Value = serde_json::from_reader(
+            File::open(&tok_path).context("can't open tokenizer JSON")?
+        ).context(
+            "failed to parse tokenizer JSON spec"
+        )?;
+
+        // check whether there's an explicit unknown token ID before asking for the token itself
+        let unk_token_id = if let Some(unk_id) = spec.pointer("/model/unk_id").and_then(Value::as_u64) {
+            Some(unk_id as usize) // e.g. `potion-multilingual-128M` has this
+        } else if let Some(unk_token) = spec.pointer("/model/unk_token").and_then(Value::as_str) {
+            let unk_id = tokenizer.token_to_id(unk_token).ok_or_else(|| anyhow!(
+                "tokenizer JSON declared unk_token=\"{unk_token}\", which is not in the vocab"
+            ))?;
+            Some(unk_id as usize)
+        } else {
+            None
+        };
 
         // Load the safetensors
         let model_bytes = fs::read(&mdl_path).context("failed to read safetensors file")?;

@@ -20,7 +20,7 @@ cargo add model2vec
 
 ```rust
 use anyhow::Result;
-use model2vec::model::Model2Vec;
+use model2vec::Model2Vec;
 
 fn main() -> Result<()> {
     // Load a model from a local directory

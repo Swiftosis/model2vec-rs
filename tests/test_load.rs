@@ -1,5 +1,5 @@
 use approx::assert_relative_eq;
-use model2vec::model::Model2Vec;
+use model2vec::Model2Vec;
 
 fn encode_with_model(path: &str) -> Vec<f32> {
     // Helper function to load the model and encode "hello world"

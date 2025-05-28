@@ -2,7 +2,7 @@ use std::fs;
 use anyhow::{Result, Context, anyhow};
 use common::load_test_model;
 use approx::assert_relative_eq;
-use model2vec::model::Model2Vec;
+use model2vec::Model2Vec;
 
 mod common;
 
